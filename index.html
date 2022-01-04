@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><!-- 구글 웹폰트(Noto Sans Korean) CDN -->
+    <style>
+        body{font-family: 'Noto Sans KR', sans-serif;}
+        section{width: 100%; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: url(img/new.jpg)no-repeat center /cover;}
+        .wrap{width: 400px;height: 500px; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); display: flex; flex-direction: column; justify-content: center; align-items: center;}
+        .participant{font-size: 16px;}
+        .order{font-size: 16px;margin: 5px 0;}
+        .word{font-size: 20px;}
+        input{margin: 10px 0; width: 100px; height: 30px; text-align: center;}
+        button{ width: 50px;height: 30px; font-size: 14px; font-weight: 400; font-family: 'Noto Sans KR', sans-serif; background: #fff; box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.3);}
+    </style>
+</head>
+<body>
+    <section>
+        <div class="wrap">
+            <div class="participant">참가자 <span id="participant"></span>명</div>
+            <div class="order"><span id="order">1</span>번째 참가자</div>
+            <div class="word">제시어 : <span id="word">3글자</span></div>
+            <input type="text">
+            <button>입력</button>
+        </div>
+    </section>
+    
+    <script>
+        let participant = document.querySelector("#participant");
+        let order = document.querySelector("#order");
+        let word = document.querySelector("#word");
+        let input = document.querySelector("input");
+        let button = document.querySelector("button");
+        let value;
+        let newValue;
+        
+        const personnel = Number(prompt("참가자는 몇명인가요?"));
+        participant.textContent = personnel;
+        input.focus();
+        
+        function onClickButton(){
+            if(!value || value[value.length -1] === newValue[0] && newValue.length === 3){
+                value = newValue;
+                word.textContent = value;
+                newOrder = Number(order.textContent);
+                if(newOrder < personnel){
+                    order.textContent = newOrder + 1;
+                }else{
+                    order.textContent = 1;
+                }
+            }else{
+                alert("틀렸습니다.");
+            }
+            input.value = "";
+            input.focus();
+        };
+        function onInput(event){
+            newValue = event.target.value;
+        };
+
+        button.addEventListener("click", onClickButton);
+        input.addEventListener("input", onInput);
+
+
+    </script>
+</body>
+</html>
